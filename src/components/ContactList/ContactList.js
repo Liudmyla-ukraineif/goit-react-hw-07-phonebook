@@ -1,14 +1,24 @@
-import { useSelector } from "react-redux";
-import { getContacts, getContactFilter } from 'redux/selectors';
+import { useEffect } from "react";
+import { useSelector, useDispatch } from "react-redux";
+import { selectIsLoading, selectContacts, selectError, selectContactFilter } from 'redux/selectors';
+import { fetchContacts } from "redux/operations";
 import ItemContact from "../ItemContact/ItemContact";
 import {List} from './ContactList.styled';
 
 const ContactList = () => {
-  //отримуємо масив контактів з store
-  const contacts = useSelector(getContacts);
+  //отримуємо інформацію з API
+  const contacts = useSelector(selectContacts);
+  const isLoading = useSelector(selectIsLoading);
+  const error = useSelector(selectError);
 
-  //отримуємо дані фільтру з store
-  const contactFilter = useSelector(getContactFilter);
+  //отримуємо дані фільтру
+  const contactFilter = useSelector(selectContactFilter);
+
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    dispatch(fetchContacts());
+  }, [dispatch]);
   
   const visibleContacts = contactFilter
     ? contacts.filter(({ name }) =>
@@ -18,9 +28,11 @@ const ContactList = () => {
 
   return (
     <List>
+      {isLoading && <p>Loading contacts...</p>}
+      {error && <p>{error}</p>}
       {visibleContacts.map(({id, name, number}) => {
         return (
-        <ItemContact key={id} id={id} name={name}number={number} />
+        <ItemContact key={id} id={id} name={name} phone={number} />
         )
       })}    
     </List>

@@ -1,6 +1,6 @@
 import { useDispatch, useSelector } from "react-redux";
-import { addContact } from "../../redux/contactSlice";
-import { getContacts } from "../../redux/selectors";
+import { addContact } from "../../redux/operations";
+import { selectContacts } from "../../redux/selectors";
 import { Formik, Form, Field, ErrorMessage } from 'formik';
 import styled from 'styled-components';
 import * as yup from 'yup';
@@ -39,7 +39,7 @@ const initialValues = {
 }
 
 export const ContactForm = () => {
-  const contacts = useSelector(getContacts);
+  const contacts = useSelector(selectContacts);
   const dispatch = useDispatch();
 
   const handleSubmitForm = ( data, actions ) => {
