@@ -30,9 +30,9 @@ const ContactList = () => {
     <List>
       {isLoading && <p>Loading contacts...</p>}
       {error && <p>{error}</p>}
-      {visibleContacts.map(({id, name, number}) => {
+      {visibleContacts.map(({id, name, phone}) => {
         return (
-        <ItemContact key={id} id={id} name={name} phone={number} />
+        <ItemContact key={id} id={id} name={name} phone={phone} />
         )
       })}    
     </List>

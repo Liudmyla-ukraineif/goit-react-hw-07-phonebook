@@ -11,7 +11,7 @@ const phoneRegExp = /\+?\d{1,4}?[-.\s]?\(?\d{1,3}?\)?[-.\s]?\d{1,4}[-.\s]?\d{1,4
 
 const schema = yup.object().shape({
   name: yup.string().matches(nameRegExp, "Name may contain only letters, apostrophe, dash and spaces. For example Adrian, Jacob Mercer, Charles de Batz de Castelmore d'Artagnan").required('Required'),
-  number: yup.string().max(9).matches(phoneRegExp, "Phone number must be digits and can contain spaces, dashes, parentheses and can start with +").required('Required'),
+  phone: yup.string().max(9).matches(phoneRegExp, "Phone number must be digits and can contain spaces, dashes, parentheses and can start with +").required('Required'),
 });
 
 const Forma = styled(Form)`
@@ -35,7 +35,7 @@ const Button = styled.button`
 // початкові з-ня форми
 const initialValues = {
     name: '',
-    number: '',
+    phone: '',
 }
 
 export const ContactForm = () => {
@@ -68,12 +68,12 @@ export const ContactForm = () => {
               <ErrorMessage component="div" name="name"/>
 
             </label>
-            <label>Number
+            <label>Number phone
               <Input
                 type="tel"
-                name="number"
+                name="phone"
               />
-              <ErrorMessage component="div" name="number"/>
+              <ErrorMessage component="div" name="phone"/>
             </label>
             <Button type="submit" disabled={isSubmitting}>Add contact</Button>
           </Forma>
